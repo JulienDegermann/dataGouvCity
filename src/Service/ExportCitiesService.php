@@ -58,10 +58,10 @@ class ExportCitiesService
     $io->title('Exportation des villes');
     $io->progressStart(count($cities));
 
-
-    $citiesData = [];
+    
+    $citiesArray = [];
     foreach ($cities as $city) {
-      $citiesData[] = [
+      $citiesArray[] = [
         'insee_code' => $city->getInseeCode(),
         'city_code' => $city->getCityCode(),
         'zip_code' => $city->getZipCode(),
@@ -77,6 +77,7 @@ class ExportCitiesService
       $io->progressAdvance();
     }
 
+    $citiesData["cities"] = $citiesArray;
 
     $jsonData = json_encode($citiesData, JSON_PRETTY_PRINT);
     file_put_contents('export/citiesExport.json', $jsonData);
